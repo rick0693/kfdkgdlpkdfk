@@ -1,7 +1,5 @@
-import streamlit as st
 import pandas as pd
 import requests
-import time
 
 # Função para obter os dados da API
 def get_api_data():
@@ -16,22 +14,18 @@ def get_api_data():
 def create_dataframe(api_data):
     if not api_data:
         return pd.DataFrame()
-    return pd.DataFrame(api_data)
+    
+    # Selecionando apenas as colunas "roll" e "color"
+    selected_columns = ["roll", "color"]
+    data = [{col: entry[col] for col in selected_columns} for entry in api_data]
+    
+    return pd.DataFrame(data)
 
-# Configuração da aplicação Streamlit
-st.title("Dados da API em tempo real")
-st.write("Atualizando a cada 5 segundos...")
+# Obtendo os dados da API
+api_data = get_api_data()
 
-# Exibir o DataFrame inicial vazio
-df = pd.DataFrame()
-table = st.table(df)
+# Criando o DataFrame com as colunas "roll" e "color"
+df = create_dataframe(api_data)
 
-# Loop while para atualizar os dados a cada 5 segundos
-while True:
-    api_data = get_api_data()
-    df = create_dataframe(api_data)
-
-    if not df.empty:
-        table.table(df)
-
-    time.sleep(5)  # Espera 5 segundos antes de atualizar novamente
+# Exibindo o DataFrame resultante
+print(df)
