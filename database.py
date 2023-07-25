@@ -5,16 +5,6 @@ from datetime import datetime
 from dateutil import parser
 import time
 import pandas as pd
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
-
-# Inicialize o SDK do Firebase com suas credenciais
-cred = credentials.Certificate('bancoblaze-firebase-adminsdk-e6pzh-9213df4821.json')
-firebase_admin.initialize_app(cred)
-
-# Inicialize o cliente do Firestore
-db = firestore.client()
 
 valor_inicial = 0.10
 maior_valor_inicial = 0.10
