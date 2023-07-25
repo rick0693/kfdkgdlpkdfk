@@ -22,12 +22,16 @@ def create_dataframe(api_data):
 st.title("Dados da API em tempo real")
 st.write("Atualizando a cada 5 segundos...")
 
+# Exibir o DataFrame inicial vazio
+df = pd.DataFrame()
+table = st.table(df)
+
 # Loop while para atualizar os dados a cada 5 segundos
 while True:
     api_data = get_api_data()
     df = create_dataframe(api_data)
 
     if not df.empty:
-        st.write(df)
+        table.table(df)
 
     time.sleep(5)  # Espera 5 segundos antes de atualizar novamente
